@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Email Generator</title>
+</head>
+
+<body>
+
+    <h1>AI Email Generator</h1>
+
+    <input
+        type="text"
+        id="purpose"
+        placeholder="Enter Email Purpose">
+
+    <br><br>
+
+    <input
+        type="text"
+        id="tone"
+        placeholder="Enter Tone">
+
+    <br><br>
+
+    <input
+        type="text"
+        id="recipient"
+        placeholder="Recipient Type">
+
+    <br><br>
+
+    <button onclick="generateEmail()">
+        Generate Email
+    </button>
+
+    <h2>Generated Email</h2>
+
+    <pre id="result"></pre>
+
+    <script>
+        async function generateEmail() {
+
+    const purpose = document.getElementById("purpose").value;
+
+    const tone = document.getElementById("tone").value;
+
+    const recipient = document.getElementById("recipient").value;
+
+    const response = await fetch("/generate", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            purpose: purpose,
+            tone: tone,
+            recipient: recipient
+        })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("result").innerText = data.result;
+}
+    </script>
+
+</body>
+
+</html>
